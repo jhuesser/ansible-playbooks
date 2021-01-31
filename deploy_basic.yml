@@ -4,6 +4,11 @@
   become: true
   tasks:
 
+  - name: Get authorized keys
+    get_url:
+      url: https://get.huesser.cloud/authorized_keys
+      dest: /root/.ssh/authorized_keys
+
   - name: disable ssh password auth
     lineinfile: dest=/etc/ssh/sshd_config
               regexp="^PasswordAuthentication"
