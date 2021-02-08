@@ -6,7 +6,7 @@
     - name: Get authorized keys
       get_url:
         url: https://get.huesser.cloud/authorized_keys
-				dest: /root/.ssh/authorized_keys
+        dest: /root/.ssh/authorized_keys
 
     - name: disable ssh password auth
       lineinfile: dest=/etc/ssh/sshd_config
@@ -14,7 +14,7 @@
           line="PasswordAuthentication no"
           state=present
       notify:
-			  - restart_ssh
+        - restart_ssh
 
     - name: Ensure hostname set
       hostname: name={{ inventory_hostname }}
@@ -23,7 +23,7 @@
 
     - name: Ensure hostname is in /etc/hosts 
       lineinfile:
-	    dest=/etc/hosts
+      dest=/etc/hosts
       regexp="^{{ ansible_default_ipv4.address }}.+$"
       line="{{ ansible_default_ipv4.address }} {{ ansible_fqdn }} {{ ansible_hostname }}"
 
@@ -32,7 +32,7 @@
         name: pi
         state: absent
         remove: yes
-				
+
 
     - name: Update apt cache
       apt: update_cache=yes
@@ -48,17 +48,17 @@
 
     - name: restart machine
       become: yes
-			shell: sleep 2 && shutdown -r now "Ansible updates triggered"
-			async: 1
-			poll: 0
-			ignore_errors: true
-			when: reboot_required_file.stat.exists == true
+      shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+      async: 1
+      poll: 0
+      ignore_errors: true
+      when: reboot_required_file.stat.exists == true
 
 
     - name: Waiting for server to come back
       become: no
       local_action: wait_for
-			  port=22
+        port=22
         host={{ inventory_hostname }}
         search_regex=OpenSSH
         delay=10
