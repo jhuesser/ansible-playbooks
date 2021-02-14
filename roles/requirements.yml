@@ -1,4 +1,3 @@
-- src: git@github.com:jhuesser/baseserver.git
+- src: https://github.com/jhuesser/baseserver.git
   vesion: master
   name: jhuesser.baseserver
-  scm: git
