@@ -1,0 +1,164 @@
+Ubuntu:
+  hosts:
+    netbox.huesser.cloud: 
+    mon.prd.bad1.huesser.cloud: 
+    octodnsyncer.prd.bad1.huesser.cloud: 
+    odoo.prd.bad1.huesser.cloud: 
+    ollama.prd.bad1.huesser.cloud: 
+    ns.prd.bad1.huesser.cloud: 
+    semaphore.prd.bad1.huesser.cloud: 
+    smokeping.prd.bad1.huesser.cloud: 
+    splunk.prd.bad1.huesser.cloud: 
+    teslamate.prd.bad1.huesser.cloud: 
+    minecraft-irm.prd.bad1.huesser.cloud: 
+    pingvin.prd.bad1.huesser.cloud: 
+    linusmc.prd.bad1.huesser.cloud: 
+    traefik.prd.bad1.huesser.cloud: 
+    notes.prd.bad1.huesser.cloud: 
+
+
+pve:
+  hosts:
+    pve01.prd.bad1.huesser.cloud: 
+    pve02.prd.bad1.huesser.cloud: 
+    pve03.prd.bad1.huesser.cloud: 
+
+
+Debian:
+  hosts:
+    paperlessai.prd.bad1.huesser.cloud: 
+    dms.prd.bad1.huesser.cloud: 
+    patch.prd.bad1.huesser.cloud: 
+    survey.prd.bad1.huesser.cloud: 
+    wizarr.prd.bad1.huesser.cloud: 
+    drive.prd.bad1.huesser.cloud: 
+    authentik.prd.bad1.huesser.cloud: 
+  children:
+    pve:
+
+
+DNS-auth:
+  hosts:
+    ns.prd.bad1.huesser.cloud: 
+
+DNS-resolver:
+  hosts:
+    nsres.prd.bad1.huesser.cloud: 
+
+
+DNS:
+  children:
+    DNS-auth: 
+    DNS-resolver: 
+
+
+SSO:
+  hosts:
+    authentik.prd.bad1.huesser.cloud:
+
+infra:
+  hosts:
+    octodnsyncer.prd.bad1.huesser.cloud: 
+    semaphore.prd.bad1.huesser.cloud: 
+    splunk.prd.bad1.huesser.cloud: 
+    traefik.prd.bad1.huesser.cloud:
+    patch.prd.bad1.huesser.cloud: 
+  children:
+    DNS:
+    SSO:
+
+
+traefik:
+  hosts:
+    traefik.prd.bad1.huesser.cloud: 
+
+ngnix:
+  hosts:
+    netbox.huesser.cloud: 
+    mon.prd.bad1.huesser.cloud:
+    patch.prd.bad1.huesser.cloud: 
+
+
+apache:
+  hosts:
+    smokeping.prd.bad1.huesser.cloud: 
+    
+webserver:
+  hosts:
+    odoo.prd.bad1.huesser.cloud: 
+  children:
+      ngnix: 
+      apache: 
+      traefik: 
+
+
+docker:
+  hosts:
+    octodnsyncer.prd.bad1.huesser.cloud: 
+    teslamate.prd.bad1.huesser.cloud: 
+    minecraft-irm.prd.bad1.huesser.cloud: 
+    linusmc.prd.bad1.huesser.cloud: 
+    notes.prd.bad1.huesser.cloud: 
+    semaphore.prd.bad1.huesser.cloud: 
+    traefik.prd.bad1.huesser.cloud: 
+    ns.prd.bad1.huesser.cloud: 
+
+
+minecraft:
+  hosts:
+    minecraft-irm.prd.bad1.huesser.cloud: 
+    linusmc.prd.bad1.huesser.cloud:
+
+cloudreve:
+  hosts:
+    drive.prd.bad1.huesser.cloud:
+
+
+app:
+  hosts:
+    odoo.prd.bad1.huesser.cloud: 
+    ollama.prd.bad1.huesser.cloud: 
+    smokeping.prd.bad1.huesser.cloud: 
+    teslamate.prd.bad1.huesser.cloud: 
+    pingvin.prd.bad1.huesser.cloud: 
+    notes.prd.bad1.huesser.cloud:
+    paperlessai.prd.bad1.huesser.cloud: 
+    dms.prd.bad1.huesser.cloud: 
+    patch.prd.bad1.huesser.cloud: 
+    survey.prd.bad1.huesser.cloud: 
+    wizarr.prd.bad1.huesser.cloud: 
+    drive.prd.bad1.huesser.cloud: 
+ 
+  children:
+    minecraft:
+    cloudreve:
+
+
+
+
+postgres:
+  hosts:
+    odoo.prd.bad1.huesser.cloud: 
+
+mariadb:
+  hosts:
+  children:
+    DNS-auth:
+
+
+database:
+  children:
+    postgres:
+    mysql:
+    mariadb:
+
+
+Critical:
+  hosts:
+    odoo.prd.bad1.huesser.cloud: 
+    traefik.prd.bad1.huesser.cloud:
+  children:
+    DNS:
+    SSO:
+    cloudreve:
+    pve:
