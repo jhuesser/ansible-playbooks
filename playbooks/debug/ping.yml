@@ -1,0 +1,7 @@
+---
+- name: Check connectivity (Ping) to all hosts
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Ping the host to check connectivity
+      ansible.builtin.ping:
