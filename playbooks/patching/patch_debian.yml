@@ -114,9 +114,6 @@
       when: inventory_hostname in groups['minecraft']
 
 
-
-
-
     - name: Ensure Proxmox services are running
       ansible.builtin.service:
         name: "{{ item }}"
@@ -139,7 +136,7 @@
         - pvescheduler.service
         - pveproxy.service
         - pvestatd.service
-      when: inventory_hostname in groups['PVE']
+      when: inventory_hostname in groups['pve']
 
 
 
