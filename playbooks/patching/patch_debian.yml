@@ -34,7 +34,7 @@
     - name: Ensure nginx.service is running
       ansible.builtin.service:
         name: "{{ item }}"
-        state: stated
+        state: started
       loop:
         - nginx.service
       when: inventory_hostname in groups['ngnix']
@@ -43,7 +43,7 @@
     - name: Ensure apache is running
       ansible.builtin.service:
         name: "{{ item }}"
-        state: stated
+        state: started
       loop:
         - apache2
       when: inventory_hostname in groups['apache']
@@ -52,7 +52,7 @@
     - name: Ensure PowerDNS is running
       ansible.builtin.service:
         name: "{{ item }}"
-        state: stated
+        state: started
       loop:
         - pdns.service
       when: inventory_hostname in groups['DNS_auth']
@@ -61,7 +61,7 @@
     - name: Ensure mariaDB is running
       ansible.builtin.service:
         name: "{{ item }}"
-        state: stated
+        state: started
       loop:
         - mariadb.service
       when: inventory_hostname in groups['mariadb']
@@ -70,7 +70,7 @@
     - name: Ensure postgres is running
       ansible.builtin.service:
         name: "{{ item }}"
-        state: stated
+        state: started
       loop:
         - postgres.service
       when: inventory_hostname in groups['postgres']
@@ -78,7 +78,7 @@
     - name: Esnure unbound container is running
       community.docker.docker_container:
         name: "{{ item }}"
-        state: stated
+        state: started
         restart_policy: always
       loop:
         - unbound-dns
@@ -88,7 +88,7 @@
     - name: Esnure traefik container is running
       community.docker.docker_container:
         name: "{{ item }}"
-        state: stated
+        state: started
         restart_policy: always
       loop:
         - traefik
@@ -98,7 +98,7 @@
     - name: Ensure docker is running
       ansible.builtin.service:
         name: "{{ item }}"
-        state: stated
+        state: started
       loop:
         - docker.service
       when: inventory_hostname in groups['docker']
@@ -106,7 +106,7 @@
     - name: Esnure minecraft container is running
       community.docker.docker_container:
         name: "{{ item }}"
-        state: stated
+        state: started
         restart_policy: always
       loop:
         - mcserver
@@ -117,7 +117,7 @@
     - name: Ensure Proxmox services are running
       ansible.builtin.service:
         name: "{{ item }}"
-        state: stated
+        state: started
       loop:
         - pve-guests.service
         - system-pve\x2dcontainer.slice
