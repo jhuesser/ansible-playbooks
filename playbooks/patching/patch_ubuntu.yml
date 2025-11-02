@@ -55,7 +55,7 @@
         starte: started
       loop:
         - pdns.service
-      when: inventory_hostname in groups['DNS-auth']
+      when: inventory_hostname in groups['DNS_auth']
 
 
     - name: Ensure mariaDB is running
@@ -82,7 +82,7 @@
         restart_policy: always
       loop:
         - unbound-dns
-      when: inventory_hostname in groups['DNS-resolver']
+      when: inventory_hostname in groups['DNS_resolver']
 
 
     - name: Esnure traefik container is running

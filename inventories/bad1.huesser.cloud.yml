@@ -37,19 +37,19 @@ Debian:
     pve:
 
 
-DNS-auth:
+DNS_auth:
   hosts:
     ns.prd.bad1.huesser.cloud: 
 
-DNS-resolver:
+DNS_resolver:
   hosts:
     nsres.prd.bad1.huesser.cloud: 
 
 
 DNS:
   children:
-    DNS-auth: 
-    DNS-resolver: 
+    DNS_auth: 
+    DNS_resolver: 
 
 
 SSO:
@@ -143,7 +143,7 @@ postgres:
 mariadb:
   hosts:
   children:
-    DNS-auth:
+    DNS_auth:
 
 
 database:
