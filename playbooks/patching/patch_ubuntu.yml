@@ -32,3 +32,87 @@
       ansible.builtin.apt:
         autoremove: yes
       when: run_playbook
+
+
+
+    - name: Ensure ngnix is running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - ngnix
+      when: inventory_hostname in groups['ngnix']
+
+
+    - name: Ensure apache is running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - apache
+      when: inventory_hostname in groups['apache']
+
+
+    - name: Ensure PowerDNS is running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        starte: started
+      loop:
+        - pdns.service
+      when: inventory_hostname in groups['DNS-auth']
+
+
+    - name: Ensure mariaDB is running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        starte: started
+      loop:
+        - mariadb.service
+      when: inventory_hostname in groups['mariadb']
+
+
+    - name: Ensure postgres is running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        starte: started
+      loop:
+        - postgres.service
+      when: inventory_hostname in groups['postgres']
+
+    - name: Esnure unbound container is running
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: started
+        restart_policy: always
+      loop:
+        - unbound-dns
+      when: inventory_hostname in groups['DNS-resolver']
+
+
+    - name: Esnure traefik container is running
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: started
+        restart_policy: always
+      loop:
+        - traefik
+      when: inventory_hostname in groups['traefik']
+
+
+    - name: Ensure docker is running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        starte: started
+      loop:
+        - docker.service
+      when: inventory_hostname in groups['docker']
+
+    - name: Esnure minecraft container is running
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: started
+        restart_policy: always
+      loop:
+        - mcserver
+        - minecraft-bluemap-1
+      when: inventory_hostname in groups['minecraft']
