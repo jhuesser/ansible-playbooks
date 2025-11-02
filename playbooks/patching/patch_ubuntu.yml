@@ -72,7 +72,8 @@
         name: "{{ item }}"
         state: started
       loop:
-        - postgres.service
+        - postgresql.service
+        - postgresql@16-main.service
       when: inventory_hostname in groups['postgres']
 
     - name: Esnure unbound container is running
