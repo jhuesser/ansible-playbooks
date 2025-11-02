@@ -5,18 +5,15 @@
     - name: Update apt cache
       ansible.builtin.apt:
         update_cache: yes
-      when: run_playbook
 
     - name: Upgrade packages
       ansible.builtin.apt:
         state: latest
-      when: run_playbook
 
     - name: Check if a reboot is required
       ansible.builtin.stat:
         path: /var/run/reboot-required
       register: reboot_required_file
-      when: run_playbook
 
     - name: Reboot machine if required
       ansible.builtin.reboot:
@@ -31,7 +28,6 @@
     - name: Remove dependencies that are no longer required
       ansible.builtin.apt:
         autoremove: yes
-      when: run_playbook
 
 
 
