@@ -31,12 +31,12 @@
         autoremove: yes
 
 
-    - name: Ensure ngnix is running
+    - name: Ensure nginx.service is running
       ansible.builtin.service:
         name: "{{ item }}"
         state: started
       loop:
-        - ngnix
+        - nginx.service
       when: inventory_hostname in groups['ngnix']
 
 
